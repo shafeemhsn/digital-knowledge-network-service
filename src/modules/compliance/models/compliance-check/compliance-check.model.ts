@@ -7,8 +7,8 @@ import {
 } from "typeorm";
 
 import { IComplianceCheck } from "./compliance-check.interface";
-import { KnowledgeResource } from "../../knowledge-resources/models/knowledge-resource.model";
-import { User } from "../../users/models/user.model";
+import { KnowledgeResource } from "../../../knowledge-resources/models/knowledge-resource.model";
+import { User } from "../../../users/models/user.model";
 
 @Entity({ name: "compliance_checks" })
 export class ComplianceCheck implements IComplianceCheck {

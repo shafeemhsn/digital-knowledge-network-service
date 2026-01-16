@@ -7,9 +7,9 @@ import {
 } from "typeorm";
 
 import { IPublishingRecord } from "./publishing-record.interface";
-import { PublishingScope } from "./compliance.enums";
-import { KnowledgeResource } from "../../knowledge-resources/models/knowledge-resource.model";
-import { User } from "../../users/models/user.model";
+import { PublishingScope } from "../compliance-check/compliance.enums";
+import { KnowledgeResource } from "../../../knowledge-resources/models/knowledge-resource.model";
+import { User } from "../../../users/models/user.model";
 
 @Entity({ name: "publishing_records" })
 export class PublishingRecord implements IPublishingRecord {

@@ -7,9 +7,9 @@ import {
 } from "typeorm";
 
 import { IValidationRecord } from "./validation-record.interface";
-import { ValidationDecision } from "./compliance.enums";
-import { KnowledgeResource } from "../../knowledge-resources/models/knowledge-resource.model";
-import { User } from "../../users/models/user.model";
+import { ValidationDecision } from "../compliance-check/compliance.enums";
+import { KnowledgeResource } from "../../../knowledge-resources/models/knowledge-resource.model";
+import { User } from "../../../users/models/user.model";
 
 @Entity({ name: "validation_records" })
 export class ValidationRecord implements IValidationRecord {

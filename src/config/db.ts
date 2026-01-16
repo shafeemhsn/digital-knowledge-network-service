@@ -7,11 +7,10 @@ import { User } from "../modules/users/models/user.model";
 import { KnowledgeResource } from "../modules/knowledge-resources/models/knowledge-resource.model";
 import { KnowledgeMetadata } from "../modules/knowledge-metadata/models/knowledge-metadata.model";
 import { KnowledgeVersion } from "../modules/knowledge-versions/models/knowledge-version.model";
-import { ComplianceCheck } from "../modules/compliance/models/compliance-check.model";
-import { ValidationRecord } from "../modules/compliance/models/validation-record.model";
-import { AuditRecord } from "../modules/compliance/models/audit-record.model";
-import { PublishingRecord } from "../modules/compliance/models/publishing-record.model";
-import { PublishedRecord } from "../modules/compliance/models/published-record.model";
+import { ComplianceCheck } from "../modules/compliance/models/compliance-check/compliance-check.model";
+import { ValidationRecord } from "../modules/compliance/models/validation-record/validation-record.model";
+import { AuditRecord } from "../modules/compliance/models/audit-record/audit-record.model";
+import { PublishingRecord } from "../modules/compliance/models/publishing-record/publishing-record.model";
 
 dotenv.config();
 
@@ -39,7 +38,6 @@ export const AppDataSource = new DataSource({
     ValidationRecord,
     AuditRecord,
     PublishingRecord,
-    PublishedRecord,
   ],
   synchronize: true,
   logging: false,
