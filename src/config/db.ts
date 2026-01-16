@@ -7,10 +7,10 @@ import { User } from "../modules/users/models/user.model";
 import { KnowledgeResource } from "../modules/knowledge-manager/knowledge-resources/models/knowledge-resource.model";
 import { KnowledgeMetadata } from "../modules/knowledge-manager/knowledge-metadata/models/knowledge-metadata.model";
 import { KnowledgeVersion } from "../modules/knowledge-manager/knowledge-versions/models/knowledge-version.model";
-import { ComplianceCheck } from "../modules/compliance/models/compliance-check/compliance-check.model";
-import { ValidationRecord } from "../modules/compliance/models/validation-record/validation-record.model";
-import { AuditRecord } from "../modules/compliance/models/audit-record/audit-record.model";
-import { PublishingRecord } from "../modules/compliance/models/publishing-record/publishing-record.model";
+import { ComplianceCheck } from "../modules/governance-manager/models/compliance-check/compliance-check.model";
+import { ValidationRecord } from "../modules/governance-manager/models/validation-record/validation-record.model";
+import { AuditRecord } from "../modules/governance-manager/models/audit-record/audit-record.model";
+import { PublishingRecord } from "../modules/governance-manager/models/publishing-record/publishing-record.model";
 
 dotenv.config();
 
