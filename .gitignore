@@ -1,0 +1,52 @@
+# Node.js dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# TypeScript build outputs
+dist/
+build/
+*.tsbuildinfo
+data/
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# New Relic log file
+newrelic_agent.log
+
+# Logs
+logs
+*.log
+npm-debug.log
+yarn-debug.log
+pnpm-debug.log
+.log
+log/
+
+# Editor and OS specific files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# Coverage and testing
+coverage/
+*.lcov
+jest-cache/
+jest-transform-cache/
+
+# Docker
+docker-compose.override.yml
+
+.fake
