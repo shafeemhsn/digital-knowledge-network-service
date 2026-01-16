@@ -1,0 +1,7 @@
+export enum KnowledgeResourceStatus {
+  DRAFT = "DRAFT",
+  UNDER_REVIEW = "UNDER_REVIEW",
+  APPROVED = "APPROVED",
+  REJECTED = "REJECTED",
+  PUBLISHED = "PUBLISHED",
+}
