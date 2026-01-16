@@ -1,7 +1,7 @@
 import { In } from "typeorm";
-import { AppDataSource } from "../../config/db";
-import HttpException from "../../util/http-exception.model";
-import logger from "../../util/logger";
+import { AppDataSource } from "../../../config/db";
+import HttpException from "../../../util/http-exception.model";
+import logger from "../../../util/logger";
 import { KnowledgeMetadata } from "./models/knowledge-metadata.model";
 import { IKnowledgeMetadata } from "./models/knowledge-metadata.interface";
 import { KnowledgeResource } from "../knowledge-resources/models/knowledge-resource.model";
@@ -141,7 +141,7 @@ export const validateKnowledgeMetadataById = async (
     }
 
     const metadataRepository = AppDataSource.getRepository(KnowledgeMetadata);
-    const data = await metadataRepository.find({
+    const data: Array<{ id: string }> = await metadataRepository.find({
       where: { id: In(id) },
       select: { id: true },
     });
@@ -157,9 +157,9 @@ export const validateKnowledgeMetadataById = async (
     }
 
     logger.info(
-      `Validated knowledge metadata ID(s): ${data.map((u) => u.id).join(", ")}`
+      `Validated knowledge metadata ID(s): ${data.map((metadata) => metadata.id).join(", ")}`
     );
-    return data.map((obj) => obj.id);
+    return data.map((metadata) => metadata.id);
   } catch (error: any) {
     logger.error(
       `Validation error for knowledge metadata ID(s): ${id.join(

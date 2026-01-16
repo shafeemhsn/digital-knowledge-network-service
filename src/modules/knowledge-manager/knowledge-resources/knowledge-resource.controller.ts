@@ -6,7 +6,7 @@ import {
   getKnowledgeResourcesByUserId,
   updateKnowledgeResourceDetails,
 } from "./knowledge-resource.service";
-import logger from "../../util/logger";
+import logger from "../../../util/logger";
 
 const router = Router();
 

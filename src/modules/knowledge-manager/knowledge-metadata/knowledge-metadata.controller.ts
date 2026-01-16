@@ -6,7 +6,7 @@ import {
   getMetadataByResourceId,
   updateKnowledgeMetadataDetails,
 } from "./knowledge-metadata.service";
-import logger from "../../util/logger";
+import logger from "../../../util/logger";
 
 const router = Router();
 

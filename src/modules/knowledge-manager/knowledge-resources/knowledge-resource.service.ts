@@ -1,6 +1,6 @@
-import HttpException from "../../util/http-exception.model";
-import logger from "../../util/logger";
-import { validateUser } from "../users/user.service";
+import HttpException from "../../../util/http-exception.model";
+import logger from "../../../util/logger";
+import { validateUser } from "../../users/user.service";
 import { IKnowledgeResource } from "./models/knowledge-resource.interface";
 import {
   deleteKnowledgeResource,

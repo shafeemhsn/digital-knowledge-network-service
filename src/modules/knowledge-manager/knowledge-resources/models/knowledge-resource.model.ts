@@ -10,7 +10,7 @@ import {
 
 import { IKnowledgeResource } from "./knowledge-resource.interface";
 import { KnowledgeResourceStatus } from "./knowledge-resource.status";
-import { User } from "../../users/models/user.model";
+import { User } from "../../../users/models/user.model";
 
 @Entity()
 export class KnowledgeResource implements IKnowledgeResource {
@@ -20,7 +20,7 @@ export class KnowledgeResource implements IKnowledgeResource {
   @Column()
   title!: string;
 
-  @Column({ nullable: true })
+  @Column({ type: "text", nullable: true })
   description?: string | null;
 
   @Column({

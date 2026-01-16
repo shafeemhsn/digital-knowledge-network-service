@@ -1,5 +1,5 @@
-import HttpException from "../../util/http-exception.model";
-import logger from "../../util/logger";
+import HttpException from "../../../util/http-exception.model";
+import logger from "../../../util/logger";
 import { validateKnowledgeResourceById } from "../knowledge-resources/knowledge-resource.repository";
 import { IKnowledgeVersion } from "./models/knowledge-version.interface";
 import {

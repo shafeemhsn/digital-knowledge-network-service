@@ -1,10 +1,10 @@
 import { In } from "typeorm";
-import { AppDataSource } from "../../config/db";
-import HttpException from "../../util/http-exception.model";
-import logger from "../../util/logger";
+import { AppDataSource } from "../../../config/db";
+import HttpException from "../../../util/http-exception.model";
+import logger from "../../../util/logger";
 import { KnowledgeResource } from "./models/knowledge-resource.model";
 import { IKnowledgeResource } from "./models/knowledge-resource.interface";
-import { User } from "../users/models/user.model";
+import { User } from "../../users/models/user.model";
 
 const uuidRegex =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
@@ -137,7 +137,7 @@ export const validateKnowledgeResourceById = async (
     }
 
     const resourceRepository = AppDataSource.getRepository(KnowledgeResource);
-    const data = await resourceRepository.find({
+    const data: Array<{ id: string }> = await resourceRepository.find({
       where: { id: In(id) },
       select: { id: true },
     });
@@ -153,9 +153,9 @@ export const validateKnowledgeResourceById = async (
     }
 
     logger.info(
-      `Validated knowledge resource ID(s): ${data.map((u) => u.id).join(", ")}`
+      `Validated knowledge resource ID(s): ${data.map((resource) => resource.id).join(", ")}`
     );
-    return data.map((obj) => obj.id);
+    return data.map((resource) => resource.id);
   } catch (error: any) {
     logger.error(
       `Validation error for knowledge resource ID(s): ${id.join(

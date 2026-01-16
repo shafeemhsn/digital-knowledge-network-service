@@ -1,7 +1,7 @@
 import { In } from "typeorm";
-import { AppDataSource } from "../../config/db";
-import HttpException from "../../util/http-exception.model";
-import logger from "../../util/logger";
+import { AppDataSource } from "../../../config/db";
+import HttpException from "../../../util/http-exception.model";
+import logger from "../../../util/logger";
 import { KnowledgeVersion } from "./models/knowledge-version.model";
 import { IKnowledgeVersion } from "./models/knowledge-version.interface";
 import { KnowledgeResource } from "../knowledge-resources/models/knowledge-resource.model";
@@ -141,7 +141,7 @@ export const validateKnowledgeVersionById = async (
     }
 
     const versionRepository = AppDataSource.getRepository(KnowledgeVersion);
-    const data = await versionRepository.find({
+    const data: Array<{ id: string }> = await versionRepository.find({
       where: { id: In(id) },
       select: { id: true },
     });
@@ -157,9 +157,9 @@ export const validateKnowledgeVersionById = async (
     }
 
     logger.info(
-      `Validated knowledge version ID(s): ${data.map((u) => u.id).join(", ")}`
+      `Validated knowledge version ID(s): ${data.map((version) => version.id).join(", ")}`
     );
-    return data.map((obj) => obj.id);
+    return data.map((version) => version.id);
   } catch (error: any) {
     logger.error(
       `Validation error for knowledge version ID(s): ${id.join(

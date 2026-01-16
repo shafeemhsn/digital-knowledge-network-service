@@ -6,7 +6,7 @@ import {
   getVersionsByResourceId,
   updateKnowledgeVersionDetails,
 } from "./knowledge-version.service";
-import logger from "../../util/logger";
+import logger from "../../../util/logger";
 
 const router = Router();
 
