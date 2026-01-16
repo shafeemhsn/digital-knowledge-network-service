@@ -8,7 +8,7 @@ import {
 
 import { IValidationRecord } from "./validation-record.interface";
 import { ValidationDecision } from "../compliance-check/compliance.enums";
-import { KnowledgeResource } from "../../../knowledge-resources/models/knowledge-resource.model";
+import { KnowledgeResource } from "../../../knowledge-manager/knowledge-resources/models/knowledge-resource.model";
 import { User } from "../../../users/models/user.model";
 
 @Entity({ name: "validation_records" })

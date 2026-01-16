@@ -7,7 +7,7 @@ import {
 } from "typeorm";
 
 import { IAuditRecord } from "./audit-record.interface";
-import { KnowledgeResource } from "../../../knowledge-resources/models/knowledge-resource.model";
+import { KnowledgeResource } from "../../../knowledge-manager/knowledge-resources/models/knowledge-resource.model";
 import { User } from "../../../users/models/user.model";
 
 @Entity({ name: "audit_records" })
