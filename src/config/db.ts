@@ -3,14 +3,14 @@ import path from "path";
 import fs from "fs";
 import { DataSource } from "typeorm";
 import logger from "../util/logger";
-import { User } from "../modules/users/models/user.model";
-import { KnowledgeResource } from "../modules/knowledge-manager/knowledge-resources/models/knowledge-resource.model";
-import { KnowledgeMetadata } from "../modules/knowledge-manager/knowledge-metadata/models/knowledge-metadata.model";
-import { KnowledgeVersion } from "../modules/knowledge-manager/knowledge-versions/models/knowledge-version.model";
-import { ComplianceCheck } from "../modules/governance-manager/models/compliance-check/compliance-check.model";
-import { ValidationRecord } from "../modules/governance-manager/models/validation-record/validation-record.model";
-import { AuditRecord } from "../modules/governance-manager/models/audit-record/audit-record.model";
-import { PublishingRecord } from "../modules/governance-manager/models/publishing-record/publishing-record.model";
+import { User } from "../modules/users/user.enity";
+import { KnowledgeResource } from "../modules/knowledge-manager/enity/knowledge-resource.enity";
+import { KnowledgeMetadata } from "../modules/knowledge-manager/enity/knowledge-metadata.entity";
+import { KnowledgeVersion } from "../modules/knowledge-manager/enity/knowledge-version.entity";
+import { ComplianceCheck } from "../modules/governance-manager/entity/compliance-check.enity";
+import { ValidationRecord } from "../modules/governance-manager/entity/validation-record.enity";
+import { AuditRecord } from "../modules/governance-manager/entity/audit-record.entity";
+import { PublishingRecord } from "../modules/governance-manager/entity/publishing-record.entity";
 
 dotenv.config();
 

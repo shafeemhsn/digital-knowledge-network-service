@@ -1,5 +1,5 @@
-import { KnowledgeResource } from "../../../knowledge-manager/knowledge-resources/models/knowledge-resource.model";
-import { User } from "../../../users/models/user.model";
+import { KnowledgeResource } from "../../knowledge-manager/enity/knowledge-resource.enity";
+import { User } from "../../users/user.enity";
 
 export interface IComplianceCheck {
   id?: string;

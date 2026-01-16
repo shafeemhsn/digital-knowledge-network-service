@@ -7,11 +7,11 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 
-import { IKnowledgeVersion } from "./knowledge-version.interface";
-import { KnowledgeResource } from "../../knowledge-resources/models/knowledge-resource.model";
+import { IKnowledgeMetadata } from "../interface/knowledge-metadata.interface";
+import { KnowledgeResource } from "./knowledge-resource.enity";
 
 @Entity()
-export class KnowledgeVersion implements IKnowledgeVersion {
+export class KnowledgeMetadata implements IKnowledgeMetadata {
   @PrimaryGeneratedColumn("uuid")
   id!: string;
 
@@ -19,20 +19,20 @@ export class KnowledgeVersion implements IKnowledgeVersion {
   @JoinColumn({ name: "knowledge_resource_id" })
   knowledge_resource_id!: KnowledgeResource;
 
-  @Column({ type: "integer" })
-  version_no!: number;
+  @Column()
+  document_type!: string;
 
   @Column()
-  file_name!: string;
+  project_name!: string;
 
   @Column()
-  file_url!: string;
+  domain!: string;
 
-  @Column({ type: "integer" })
-  file_size!: number;
+  @Column({ type: "simple-json", nullable: true })
+  tags?: string | null;
 
   @CreateDateColumn({ name: "created_at" })
   created_at!: Date;
 }
 
-export type IKnowledgeVersionEntity = KnowledgeVersion;
+export type IKnowledgeMetadataEntity = KnowledgeMetadata;

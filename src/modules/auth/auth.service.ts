@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 
 import { createUser, getUserByEmail } from "../users/user.repository";
-import { IUser } from "../users/models/user.model";
+import { IUser } from "../users/user.enity";
 import { AuthResult, LoginInput } from "./interface/auth.interface";
 import HttpException from "../../util/http-exception.model";
 import { encrypt } from "./encrypt";
@@ -44,9 +44,7 @@ export const signup = async (registerUser: IUser): Promise<AuthResult> => {
       },
     };
   } catch (error: any) {
-    logger.error(
-      `Signup error: ${error.message}`
-    );
+    logger.error(`Signup error: ${error.message}`);
 
     if (
       error?.code === "SQLITE_CONSTRAINT" ||

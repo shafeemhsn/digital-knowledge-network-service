@@ -6,10 +6,10 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 
-import { IPublishingRecord } from "./publishing-record.interface";
-import { PublishingScope } from "../compliance-check/compliance.enums";
-import { KnowledgeResource } from "../../../knowledge-manager/knowledge-resources/models/knowledge-resource.model";
-import { User } from "../../../users/models/user.model";
+import { IPublishingRecord } from "../interface/publishing-record.interface";
+import { PublishingScope } from "../interface/compliance.enums";
+import { KnowledgeResource } from "../../knowledge-manager/enity/knowledge-resource.enity";
+import { User } from "../../users/user.enity";
 
 @Entity({ name: "publishing_records" })
 export class PublishingRecord implements IPublishingRecord {

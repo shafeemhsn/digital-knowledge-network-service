@@ -8,9 +8,9 @@ import {
   UpdateDateColumn,
 } from "typeorm";
 
-import { IKnowledgeResource } from "./knowledge-resource.interface";
-import { KnowledgeResourceStatus } from "./knowledge-resource.status";
-import { User } from "../../../users/models/user.model";
+import { IKnowledgeResource } from "../interface/knowledge-resource.interface";
+import { KnowledgeResourceStatus } from "../interface/knowledge-resource.status";
+import { User } from "../../users/user.enity";
 
 @Entity()
 export class KnowledgeResource implements IKnowledgeResource {

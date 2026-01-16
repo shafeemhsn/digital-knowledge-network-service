@@ -6,9 +6,9 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 
-import { IComplianceCheck } from "./compliance-check.interface";
-import { KnowledgeResource } from "../../../knowledge-manager/knowledge-resources/models/knowledge-resource.model";
-import { User } from "../../../users/models/user.model";
+import { IComplianceCheck } from "../interface/compliance-check.interface";
+import { KnowledgeResource } from "../../knowledge-manager/enity/knowledge-resource.enity";
+import { User } from "../../users/user.enity";
 
 @Entity({ name: "compliance_checks" })
 export class ComplianceCheck implements IComplianceCheck {

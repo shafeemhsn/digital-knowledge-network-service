@@ -6,10 +6,10 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 
-import { IValidationRecord } from "./validation-record.interface";
-import { ValidationDecision } from "../compliance-check/compliance.enums";
-import { KnowledgeResource } from "../../../knowledge-manager/knowledge-resources/models/knowledge-resource.model";
-import { User } from "../../../users/models/user.model";
+import { IValidationRecord } from "../interface/validation-record.interface";
+import { ValidationDecision } from "../interface/compliance.enums";
+import { KnowledgeResource } from "../../knowledge-manager/enity/knowledge-resource.enity";
+import { User } from "../../users/user.enity";
 
 @Entity({ name: "validation_records" })
 export class ValidationRecord implements IValidationRecord {

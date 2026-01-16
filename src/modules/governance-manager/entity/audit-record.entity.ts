@@ -6,9 +6,9 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 
-import { IAuditRecord } from "./audit-record.interface";
-import { KnowledgeResource } from "../../../knowledge-manager/knowledge-resources/models/knowledge-resource.model";
-import { User } from "../../../users/models/user.model";
+import { IAuditRecord } from "../interface/audit-record.interface";
+import { KnowledgeResource } from "../../knowledge-manager/enity/knowledge-resource.enity";
+import { User } from "../../users/user.enity";
 
 @Entity({ name: "audit_records" })
 export class AuditRecord implements IAuditRecord {

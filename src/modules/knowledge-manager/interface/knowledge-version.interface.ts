@@ -1,4 +1,4 @@
-import { KnowledgeResource } from "../../knowledge-resources/models/knowledge-resource.model";
+import { KnowledgeResource } from "../enity/knowledge-resource.enity";
 
 export interface IKnowledgeVersion {
   id?: string;

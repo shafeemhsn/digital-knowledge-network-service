@@ -1,6 +1,6 @@
 import HttpException from "../../util/http-exception.model";
 import { In } from "typeorm";
-import { IUser, User } from "./models/user.model";
+import { IUser, User } from "./user.enity";
 import { AppDataSource } from "../../config/db";
 import { deleteUser, updateUser } from "./user.repository";
 import logger from "../../util/logger";
