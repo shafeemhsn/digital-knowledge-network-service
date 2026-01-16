@@ -7,6 +7,11 @@ import { User } from "../modules/users/models/user.model";
 import { KnowledgeResource } from "../modules/knowledge-resources/models/knowledge-resource.model";
 import { KnowledgeMetadata } from "../modules/knowledge-metadata/models/knowledge-metadata.model";
 import { KnowledgeVersion } from "../modules/knowledge-versions/models/knowledge-version.model";
+import { ComplianceCheck } from "../modules/compliance/models/compliance-check.model";
+import { ValidationRecord } from "../modules/compliance/models/validation-record.model";
+import { AuditRecord } from "../modules/compliance/models/audit-record.model";
+import { PublishingRecord } from "../modules/compliance/models/publishing-record.model";
+import { PublishedRecord } from "../modules/compliance/models/published-record.model";
 
 dotenv.config();
 
@@ -25,7 +30,17 @@ const resolvedDatabasePath = resolveDatabasePath(SQLITE_PATH);
 export const AppDataSource = new DataSource({
   type: "sqlite",
   database: resolvedDatabasePath,
-  entities: [User, KnowledgeResource, KnowledgeMetadata, KnowledgeVersion],
+  entities: [
+    User,
+    KnowledgeResource,
+    KnowledgeMetadata,
+    KnowledgeVersion,
+    ComplianceCheck,
+    ValidationRecord,
+    AuditRecord,
+    PublishingRecord,
+    PublishedRecord,
+  ],
   synchronize: true,
   logging: false,
 });
