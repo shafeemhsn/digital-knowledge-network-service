@@ -1,10 +1,10 @@
-import { KnowledgeResource } from "../../../knowledge-manager/enity/knowledge-resource.enity";
-import { User } from "../../../users/user.enity";
+import { KnowledgeResource } from "../../knowledge-manager/enity/knowledge-resource.enity";
+import { User } from "../../users/user.enity";
 
 export interface IAuditRecord {
   id?: string;
-  knowledge_resource_id?: KnowledgeResource;
+  knowledgeResourceId?: KnowledgeResource;
   findings: string;
-  audited_by?: User;
-  audited_at: Date;
+  auditedBy?: User;
+  auditedAt: Date;
 }

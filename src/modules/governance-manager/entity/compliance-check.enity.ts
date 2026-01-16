@@ -17,20 +17,20 @@ export class ComplianceCheck implements IComplianceCheck {
 
   @ManyToOne(() => KnowledgeResource, { onDelete: "CASCADE" })
   @JoinColumn({ name: "knowledge_resource_id" })
-  knowledge_resource_id!: KnowledgeResource;
+  knowledgeResourceId!: KnowledgeResource;
 
-  @Column({ type: "boolean", default: false })
-  gdpr_compliant!: boolean;
+  @Column({ type: "boolean", default: false, name: "gdpr_compliant" })
+  gdprCompliant!: boolean;
 
-  @Column({ type: "boolean", default: false })
-  localisation_compliant!: boolean;
+  @Column({ type: "boolean", default: false, name: "localisation_compliant" })
+  localisationCompliant!: boolean;
 
   @ManyToOne(() => User, { onDelete: "SET NULL" })
   @JoinColumn({ name: "checked_by" })
-  checked_by!: User;
+  checkedBy!: User;
 
   @Column({ type: "datetime", name: "checked_at" })
-  checked_at!: Date;
+  checkedAt!: Date;
 }
 
 export type IComplianceCheckEntity = ComplianceCheck;

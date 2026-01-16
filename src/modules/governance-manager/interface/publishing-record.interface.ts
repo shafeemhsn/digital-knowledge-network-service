@@ -1,11 +1,11 @@
-import { KnowledgeResource } from "../../../knowledge-manager/enity/knowledge-resource.enity";
-import { User } from "../../../users/user.enity";
-import { PublishingScope } from "../../interface/compliance.enums";
+import { KnowledgeResource } from "../../knowledge-manager/enity/knowledge-resource.enity";
+import { User } from "../../users/user.enity";
+import { PublishingScope } from "./compliance.enums";
 
 export interface IPublishingRecord {
   id?: string;
-  knowledge_resource_id?: KnowledgeResource;
+  knowledgeResourceId?: KnowledgeResource;
   scope: PublishingScope;
-  published_by?: User;
-  published_at: Date;
+  publishedBy?: User;
+  publishedAt: Date;
 }

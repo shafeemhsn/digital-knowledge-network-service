@@ -6,7 +6,7 @@ export interface IKnowledgeResource {
   title: string;
   description?: string | null;
   status?: KnowledgeResourceStatus;
-  duplicate_flag?: boolean;
-  outdated_flag?: boolean;
-  uploaded_by?: User;
+  duplicateFlag?: boolean;
+  outdatedFlag?: boolean;
+  uploadedBy?: User;
 }

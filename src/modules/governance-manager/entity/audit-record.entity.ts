@@ -17,17 +17,17 @@ export class AuditRecord implements IAuditRecord {
 
   @ManyToOne(() => KnowledgeResource, { onDelete: "CASCADE" })
   @JoinColumn({ name: "knowledge_resource_id" })
-  knowledge_resource_id!: KnowledgeResource;
+  knowledgeResourceId!: KnowledgeResource;
 
   @Column()
   findings!: string;
 
   @ManyToOne(() => User, { onDelete: "SET NULL" })
   @JoinColumn({ name: "audited_by" })
-  audited_by!: User;
+  auditedBy!: User;
 
   @Column({ type: "datetime", name: "audited_at" })
-  audited_at!: Date;
+  auditedAt!: Date;
 }
 
 export type IAuditRecordEntity = AuditRecord;

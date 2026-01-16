@@ -17,22 +17,22 @@ export class KnowledgeVersion implements IKnowledgeVersion {
 
   @ManyToOne(() => KnowledgeResource, { onDelete: "CASCADE" })
   @JoinColumn({ name: "knowledge_resource_id" })
-  knowledge_resource_id!: KnowledgeResource;
+  knowledgeResourceId!: KnowledgeResource;
 
-  @Column({ type: "integer" })
-  version_no!: number;
+  @Column({ type: "integer", name: "version_no" })
+  versionNo!: number;
 
-  @Column()
-  file_name!: string;
+  @Column({ name: "file_name" })
+  fileName!: string;
 
-  @Column()
-  file_url!: string;
+  @Column({ name: "file_url" })
+  fileUrl!: string;
 
-  @Column({ type: "integer" })
-  file_size!: number;
+  @Column({ type: "integer", name: "file_size" })
+  fileSize!: number;
 
   @CreateDateColumn({ name: "created_at" })
-  created_at!: Date;
+  createdAt!: Date;
 }
 
 export type IKnowledgeVersionEntity = KnowledgeVersion;

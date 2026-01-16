@@ -30,21 +30,21 @@ export class KnowledgeResource implements IKnowledgeResource {
   })
   status!: KnowledgeResourceStatus;
 
-  @Column({ type: "boolean", default: false })
-  duplicate_flag!: boolean;
+  @Column({ type: "boolean", default: false, name: "duplicate_flag" })
+  duplicateFlag!: boolean;
 
-  @Column({ type: "boolean", default: false })
-  outdated_flag!: boolean;
+  @Column({ type: "boolean", default: false, name: "outdated_flag" })
+  outdatedFlag!: boolean;
 
   @ManyToOne(() => User, { onDelete: "CASCADE" })
   @JoinColumn({ name: "uploaded_by" })
-  uploaded_by!: User;
+  uploadedBy!: User;
 
   @CreateDateColumn({ name: "created_at" })
-  created_at!: Date;
+  createdAt!: Date;
 
   @UpdateDateColumn({ name: "updated_at" })
-  updated_at!: Date;
+  updatedAt!: Date;
 }
 
 export type IKnowledgeResourceEntity = KnowledgeResource;

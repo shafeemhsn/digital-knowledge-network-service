@@ -17,13 +17,13 @@ export class KnowledgeMetadata implements IKnowledgeMetadata {
 
   @ManyToOne(() => KnowledgeResource, { onDelete: "CASCADE" })
   @JoinColumn({ name: "knowledge_resource_id" })
-  knowledge_resource_id!: KnowledgeResource;
+  knowledgeResourceId!: KnowledgeResource;
 
-  @Column()
-  document_type!: string;
+  @Column({ name: "document_type" })
+  documentType!: string;
 
-  @Column()
-  project_name!: string;
+  @Column({ name: "project_name" })
+  projectName!: string;
 
   @Column()
   domain!: string;
@@ -32,7 +32,7 @@ export class KnowledgeMetadata implements IKnowledgeMetadata {
   tags?: string | null;
 
   @CreateDateColumn({ name: "created_at" })
-  created_at!: Date;
+  createdAt!: Date;
 }
 
 export type IKnowledgeMetadataEntity = KnowledgeMetadata;

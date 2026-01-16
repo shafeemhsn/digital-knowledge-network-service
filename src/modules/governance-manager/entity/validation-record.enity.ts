@@ -18,7 +18,7 @@ export class ValidationRecord implements IValidationRecord {
 
   @ManyToOne(() => KnowledgeResource, { onDelete: "CASCADE" })
   @JoinColumn({ name: "knowledge_resource_id" })
-  knowledge_resource_id!: KnowledgeResource;
+  knowledgeResourceId!: KnowledgeResource;
 
   @Column({
     type: "text",
@@ -28,10 +28,10 @@ export class ValidationRecord implements IValidationRecord {
 
   @ManyToOne(() => User, { onDelete: "SET NULL" })
   @JoinColumn({ name: "validated_by" })
-  validated_by!: User;
+  validatedBy!: User;
 
   @Column({ type: "datetime", name: "validated_at" })
-  validated_at!: Date;
+  validatedAt!: Date;
 }
 
 export type IValidationRecordEntity = ValidationRecord;

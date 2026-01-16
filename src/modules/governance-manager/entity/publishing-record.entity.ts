@@ -18,7 +18,7 @@ export class PublishingRecord implements IPublishingRecord {
 
   @ManyToOne(() => KnowledgeResource, { onDelete: "CASCADE" })
   @JoinColumn({ name: "knowledge_resource_id" })
-  knowledge_resource_id!: KnowledgeResource;
+  knowledgeResourceId!: KnowledgeResource;
 
   @Column({
     type: "text",
@@ -28,10 +28,10 @@ export class PublishingRecord implements IPublishingRecord {
 
   @ManyToOne(() => User, { onDelete: "SET NULL" })
   @JoinColumn({ name: "published_by" })
-  published_by!: User;
+  publishedBy!: User;
 
   @Column({ type: "datetime", name: "published_at" })
-  published_at!: Date;
+  publishedAt!: Date;
 }
 
 export type IPublishingRecordEntity = PublishingRecord;
