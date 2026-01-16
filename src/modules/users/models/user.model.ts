@@ -4,12 +4,10 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
 import bcrypt from "bcrypt";
-import { Task } from "../../task/models/task.model";
 
 const saltRounds = 10;
 
@@ -29,9 +27,6 @@ export class User {
 
   @Column()
   password!: string;
-
-  @OneToMany(() => Task, (task) => task.user)
-  tasks?: Task[];
 
   @CreateDateColumn()
   createdAt!: Date;

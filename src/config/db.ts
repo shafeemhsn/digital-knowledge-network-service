@@ -4,8 +4,8 @@ import fs from "fs";
 import { DataSource } from "typeorm";
 import logger from "../util/logger";
 import { User } from "../modules/users/models/user.model";
-import { Task } from "../modules/task/models/task.model";
 import { KnowledgeResource } from "../modules/knowledge-resources/models/knowledge-resource.model";
+import { KnowledgeMetadata } from "../modules/knowledge-metadata/models/knowledge-metadata.model";
 
 dotenv.config();
 
@@ -24,7 +24,7 @@ const resolvedDatabasePath = resolveDatabasePath(SQLITE_PATH);
 export const AppDataSource = new DataSource({
   type: "sqlite",
   database: resolvedDatabasePath,
-  entities: [User, Task, KnowledgeResource],
+  entities: [User, KnowledgeResource, KnowledgeMetadata],
   synchronize: true,
   logging: false,
 });
