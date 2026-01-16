@@ -6,6 +6,7 @@ import logger from "../util/logger";
 import { User } from "../modules/users/models/user.model";
 import { KnowledgeResource } from "../modules/knowledge-resources/models/knowledge-resource.model";
 import { KnowledgeMetadata } from "../modules/knowledge-metadata/models/knowledge-metadata.model";
+import { KnowledgeVersion } from "../modules/knowledge-versions/models/knowledge-version.model";
 
 dotenv.config();
 
@@ -24,7 +25,7 @@ const resolvedDatabasePath = resolveDatabasePath(SQLITE_PATH);
 export const AppDataSource = new DataSource({
   type: "sqlite",
   database: resolvedDatabasePath,
-  entities: [User, KnowledgeResource, KnowledgeMetadata],
+  entities: [User, KnowledgeResource, KnowledgeMetadata, KnowledgeVersion],
   synchronize: true,
   logging: false,
 });
