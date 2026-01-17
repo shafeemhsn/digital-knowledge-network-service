@@ -1,5 +1,9 @@
 import { Router, Request, Response, NextFunction } from "express";
-import { createOfficeEntry, createRegionEntry } from "./geo-location.service";
+import {
+  createOfficeEntry,
+  createRegionEntry,
+  getAllRegionsEntry,
+} from "./geo-location.service";
 import logger from "../../util/logger";
 import {
   CreateOfficeInput,
@@ -18,6 +22,21 @@ router.post(
       res.status(201).json(result);
     } catch (error: any) {
       logger.error(`Error creating region: ${error.message}`);
+      next(error);
+    }
+  }
+);
+
+router.get(
+  "/regions",
+  async (_req: Request, res: Response, next: NextFunction) => {
+    logger.info("GET /geo-location/regions - Fetch all regions");
+
+    try {
+      const result = await getAllRegionsEntry();
+      res.status(200).json(result);
+    } catch (error: any) {
+      logger.error(`Error fetching regions: ${error.message}`);
       next(error);
     }
   }

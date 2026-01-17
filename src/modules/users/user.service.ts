@@ -1,23 +1,20 @@
 import HttpException from "../../util/http-exception.model";
-import { In } from "typeorm";
-import { IUser, User } from "./entity/user.enity";
+import { IUser } from "./entity/user.enity";
 import { RoleName } from "./role-permission.enums";
-import { AppDataSource } from "../../config/db";
 import {
   createRole,
   createUser,
   deleteUser,
   getRoleById,
+  getUserById as getUserByIdRepo,
+  getUserByIdWithRelations,
+  getUsersWithRelations,
   getUserByEmail,
   updateUser,
+  validateUserById as validateUserByIdRepo,
 } from "./user.repository";
 import logger from "../../util/logger";
 import { IRole } from "./entity/role.enity";
-
-const uuidRegex =
-  /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-
-const isUuid = (id: string) => uuidRegex.test(id);
 
 export const updateUserDetails = async (id: string, updateUserData: IUser) => {
   try {
@@ -75,14 +72,7 @@ export const deleteUserById = async (id: string) => {
 export const getUserById = async (id: string): Promise<IUser | null> => {
   try {
     logger.info(`Fetching user by ID: ${id}`);
-
-    await validateUserById([id]);
-
-    const userRepository = AppDataSource.getRepository(User);
-    return await userRepository.findOne({
-      where: { id },
-      select: { id: true, firstName: true, lastName: true, email: true },
-    });
+    return await getUserByIdRepo(id);
   } catch (error) {
     logger.error(`Error in getUserById (ID: ${id}): ${JSON.stringify(error)}`);
     throw error;
@@ -105,35 +95,7 @@ export const validateUser = async (id: string[]): Promise<string[] | any> => {
 export const validateUserById = async (id: string[]): Promise<string[]> => {
   try {
     logger.info(`Validating user ID(s): ${id.join(", ")}`);
-
-    const invalidIds = id.filter((value) => !isUuid(value));
-
-    if (invalidIds.length > 0) {
-      logger.warn(`Invalid UUID(s): ${invalidIds.join(", ")}`);
-      throw new HttpException(202, {
-        message: `Invalid UUID(s): ${invalidIds.join(", ")}`,
-        result: false,
-      });
-    }
-
-    const userRepository = AppDataSource.getRepository(User);
-    const users = await userRepository.find({
-      where: { id: In(id) },
-      select: { id: true },
-    });
-
-    if (!users.length) {
-      logger.warn("No users found by provided ID(s)");
-      throw new HttpException(202, {
-        message: "No valid users found",
-        result: false,
-      });
-    }
-
-    logger.info(
-      `Validated user ID(s): ${users.map((user) => user.id).join(", ")}`
-    );
-    return users.map((user) => user.id);
+    return await validateUserByIdRepo(id);
   } catch (error) {
     logger.error(
       `Validation error for ID(s): ${id.join(", ")} - ${JSON.stringify(error)}`
@@ -203,6 +165,28 @@ export const getUserByEmailEntry = async (
     return await getUserByEmail(email);
   } catch (error: any) {
     logger.error(`Get user by email error: ${error.message}`);
+    throw error;
+  }
+};
+
+export const getUserByIdWithRelationsEntry = async (
+  id: string
+): Promise<IUser | null> => {
+  try {
+    logger.info(`Fetching user by ID with relations: ${id}`);
+    return await getUserByIdWithRelations(id);
+  } catch (error: any) {
+    logger.error(`Get user by id error (ID: ${id}): ${error.message}`);
+    throw error;
+  }
+};
+
+export const getUsersWithRelationsEntry = async (): Promise<IUser[]> => {
+  try {
+    logger.info("Fetching users with relations");
+    return await getUsersWithRelations();
+  } catch (error: any) {
+    logger.error(`Get users with relations error: ${error.message}`);
     throw error;
   }
 };

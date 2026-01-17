@@ -12,6 +12,7 @@ import logger from "../../util/logger";
 import {
   createUserEntry,
   getRoleByIdEntry,
+  getUserByIdWithRelationsEntry,
   getUserByEmailEntry,
 } from "../users/user.service";
 import { getRegionByIdEntry } from "../geo-location/geo-location.service";
@@ -27,10 +28,9 @@ const buildAuthUserResponse = (user: any): AuthUserResponse => {
     name,
     role: user?.role?.name ?? null,
     region: user?.region?.name ?? null,
-    ...(user?.expertise ? { expertise: user.expertise } : {}),
-    ...(typeof user?.contributionScore === "number"
-      ? { contributionScore: user.contributionScore }
-      : {}),
+    expertise: user?.expertise ?? "Generalist",
+    contributionScore:
+      typeof user?.contributionScore === "number" ? user.contributionScore : 0,
   };
 };
 
@@ -156,5 +156,27 @@ export const login = async (loginInput: LoginInput): Promise<AuthResult> => {
   } catch (error: any) {
     logger.error(`Login error: ${error.message}`);
     throw error;
+  }
+};
+
+export const getCurrentUser = async (token: string): Promise<AuthUserResponse> => {
+  try {
+    const payload = encrypt.verifyToken(token);
+    if (!payload?.userId) {
+      throw new HttpException(401, { message: "Invalid token", result: false });
+    }
+
+    const user = await getUserByIdWithRelationsEntry(payload.userId);
+    if (!user) {
+      throw new HttpException(404, { message: "User not found", result: false });
+    }
+
+    return buildAuthUserResponse(user);
+  } catch (error: any) {
+    logger.error(`Get current user error: ${error.message}`);
+    if (error instanceof HttpException) {
+      throw error;
+    }
+    throw new HttpException(401, { message: "Unauthorized", result: false });
   }
 };

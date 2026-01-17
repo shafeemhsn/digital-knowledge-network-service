@@ -23,6 +23,12 @@ export class KnowledgeResource implements IKnowledgeResource {
   @Column({ type: "text", nullable: true })
   description?: string | null;
 
+  @Column({ type: "text", nullable: true })
+  content?: string | null;
+
+  @Column({ type: "text", nullable: true })
+  category?: string | null;
+
   @Column({
     type: "text",
     enum: KnowledgeResourceStatus,
@@ -35,6 +41,24 @@ export class KnowledgeResource implements IKnowledgeResource {
 
   @Column({ type: "boolean", default: false, name: "outdated_flag" })
   outdatedFlag!: boolean;
+
+  @Column({ type: "float", default: 0 })
+  rating!: number;
+
+  @Column({ type: "integer", default: 0, name: "rating_count" })
+  ratingCount!: number;
+
+  @Column({ type: "integer", default: 0 })
+  views!: number;
+
+  @Column({ type: "datetime", nullable: true, name: "published_at" })
+  publishedAt?: Date | null;
+
+  @Column({ type: "boolean", default: false, name: "has_personal_data" })
+  hasPersonalData!: boolean;
+
+  @Column({ type: "boolean", default: false, name: "has_client_info" })
+  hasClientInfo!: boolean;
 
   @ManyToOne(() => User, { onDelete: "CASCADE" })
   @JoinColumn({ name: "uploaded_by" })

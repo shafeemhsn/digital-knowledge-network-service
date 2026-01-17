@@ -1,6 +1,8 @@
 export enum KnowledgeResourceStatus {
-  DRAFT = "DRAFT",
-  REVIEW = "REVIEW",
-  PUBLISHED = "PUBLISHED",
-  ARCHIVED = "ARCHIVED",
+  DRAFT = "draft",
+  PENDING_COMPLIANCE = "pending_compliance",
+  CHANGES_REQUESTED = "changes_requested",
+  PENDING_GOVERNANCE = "pending_governance",
+  PUBLISHED = "published",
+  REJECTED = "rejected",
 }

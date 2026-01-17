@@ -32,6 +32,12 @@ export class User {
   @Column()
   password!: string;
 
+  @Column({ type: "text", nullable: true })
+  expertise?: string | null;
+
+  @Column({ type: "integer", nullable: true, name: "contribution_score" })
+  contributionScore?: number | null;
+
   @ManyToOne(() => Role, { nullable: true })
   @JoinColumn({ name: "role_id" })
   role?: Role | null;

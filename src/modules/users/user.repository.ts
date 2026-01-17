@@ -63,6 +63,50 @@ export const getRoleById = async (id: string): Promise<IRole | null> => {
   }
 };
 
+export const getUserById = async (id: string): Promise<IUser | null> => {
+  try {
+    logger.info(`Retrieving user by id: ${id}`);
+    await validateUserById([id]);
+    const userRepository = AppDataSource.getRepository(User);
+    return await userRepository.findOne({
+      where: { id },
+      select: { id: true, firstName: true, lastName: true, email: true },
+    });
+  } catch (error: any) {
+    logger.error(`Error retrieving user by id: ${error.message}`);
+    throw error;
+  }
+};
+
+export const getUserByIdWithRelations = async (
+  id: string
+): Promise<IUser | null> => {
+  try {
+    logger.info("Retrieving user by id with relations");
+    const userRepository = AppDataSource.getRepository(User);
+    return await userRepository.findOne({
+      where: { id },
+      relations: { role: true, region: true },
+    });
+  } catch (error: any) {
+    logger.error(`Error retrieving user by id: ${error.message}`);
+    throw error;
+  }
+};
+
+export const getUsersWithRelations = async (): Promise<IUser[]> => {
+  try {
+    logger.info("Retrieving users with relations");
+    const userRepository = AppDataSource.getRepository(User);
+    return await userRepository.find({
+      relations: { role: true, region: true },
+    });
+  } catch (error: any) {
+    logger.error(`Error retrieving users with relations: ${error.message}`);
+    throw error;
+  }
+};
+
 export const updateUser = async (id: string, updateUser: IUser) => {
   try {
     logger.info(`Updating user: ${id}`);

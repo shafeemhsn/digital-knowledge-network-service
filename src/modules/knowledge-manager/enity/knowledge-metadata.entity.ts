@@ -9,6 +9,7 @@ import {
 
 import { IKnowledgeMetadata } from "../interface/knowledge-metadata.interface";
 import { KnowledgeResource } from "./knowledge-resource.enity";
+import { Region } from "../../geo-location/entity/region.entity";
 
 @Entity()
 export class KnowledgeMetadata implements IKnowledgeMetadata {
@@ -18,6 +19,10 @@ export class KnowledgeMetadata implements IKnowledgeMetadata {
   @ManyToOne(() => KnowledgeResource, { onDelete: "CASCADE" })
   @JoinColumn({ name: "knowledge_resource_id" })
   knowledgeResourceId!: KnowledgeResource;
+
+  @ManyToOne(() => Region, { nullable: true })
+  @JoinColumn({ name: "region_id" })
+  regionId?: Region | null;
 
   @Column({ name: "document_type" })
   documentType!: string;

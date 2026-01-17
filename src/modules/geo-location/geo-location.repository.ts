@@ -28,6 +28,16 @@ export const getRegionById = async (id: string): Promise<IRegion | null> => {
   }
 };
 
+export const getAllRegions = async (): Promise<IRegion[]> => {
+  try {
+    const regionRepository = AppDataSource.getRepository(Region);
+    return await regionRepository.find();
+  } catch (error: any) {
+    logger.error(`Error fetching regions: ${error.message}`);
+    throw error;
+  }
+};
+
 export const createOffice = async (
   createOffice: DeepPartial<IOffice>
 ): Promise<IOffice> => {

@@ -3,6 +3,7 @@ import logger from "../../util/logger";
 import {
   createOffice,
   createRegion,
+  getAllRegions,
   getRegionById,
 } from "./geo-location.repository";
 import { IRegion } from "./entity/region.entity";
@@ -86,6 +87,16 @@ export const getRegionByIdEntry = async (
     return await getRegionById(id);
   } catch (error: any) {
     logger.error(`Get region error (ID: ${id}): ${error.message}`);
+    throw error;
+  }
+};
+
+export const getAllRegionsEntry = async (): Promise<IRegion[]> => {
+  try {
+    logger.info("Fetching all regions");
+    return await getAllRegions();
+  } catch (error: any) {
+    logger.error(`Get regions error: ${error.message}`);
     throw error;
   }
 };

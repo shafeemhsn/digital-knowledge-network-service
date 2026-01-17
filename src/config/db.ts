@@ -15,6 +15,7 @@ import { AuditRecord } from "../modules/governance-manager/entity/audit-record.e
 import { PublishingRecord } from "../modules/governance-manager/entity/publishing-record.entity";
 import { Region } from "../modules/geo-location/entity/region.entity";
 import { Office } from "../modules/geo-location/entity/office.entity";
+import { Notification } from "../modules/notifications/entity/notification.entity";
 
 dotenv.config();
 
@@ -44,6 +45,7 @@ export const AppDataSource = new DataSource({
     ValidationRecord,
     AuditRecord,
     PublishingRecord,
+    Notification,
     Region,
     Office,
   ],

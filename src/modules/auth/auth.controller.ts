@@ -1,5 +1,6 @@
 import { Router, Request, Response, NextFunction } from "express";
-import { login, signup } from "./auth.service";
+import { getCurrentUser, login, signup } from "./auth.service";
+import HttpException from "../../util/http-exception.model";
 import logger from "../../util/logger";
 
 const router = Router();
@@ -33,5 +34,27 @@ router.post(
     }
   }
 );
+
+router.get("/me", async (req: Request, res: Response, next: NextFunction) => {
+  logger.info("GET auth/me called");
+
+  try {
+    const header = req.headers.authorization;
+    if (!header || !header.startsWith("Bearer ")) {
+      throw new HttpException(401, { message: "Unauthorized", result: false });
+    }
+
+    const token = header.slice("Bearer ".length).trim();
+    if (!token) {
+      throw new HttpException(401, { message: "Unauthorized", result: false });
+    }
+
+    const user = await getCurrentUser(token);
+    res.status(200).json(user);
+  } catch (error: any) {
+    logger.error(`Get current user error: ${error.message}`);
+    next(error);
+  }
+});
 
 export { router as authController };
