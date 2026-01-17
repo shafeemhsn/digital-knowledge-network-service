@@ -13,13 +13,15 @@ const buildExpert = (
   includeRegion: boolean
 ) => {
   const name = `${user.firstName ?? ""} ${user.lastName ?? ""}`.trim();
-  const roleName = user?.role?.name ?? "consultant";
-  const expertise = user.expertise;
+  const expertise = user.expertise ?? null;
+  const roleName = user?.role?.name ?? null;
 
   return {
     id: user.id,
     name: name || user.email,
-    expertise: expertise ?? roleName,
+    email: user.email ?? null,
+    expertise,
+    role: roleName,
     profilePicture: null,
     region: includeRegion ? user?.region?.name ?? null : undefined,
     contributionScore,
@@ -53,9 +55,11 @@ export const getExperts = async (query?: string) => {
         if (!needle) return true;
         const name = `${user.firstName ?? ""} ${user.lastName ?? ""}`.toLowerCase();
         const roleName = `${user?.role?.name ?? ""}`.toLowerCase();
+        const expertise = `${user.expertise ?? ""}`.toLowerCase();
         return (
           name.includes(needle) ||
           roleName.includes(needle) ||
+          expertise.includes(needle) ||
           (user.email || "").toLowerCase().includes(needle)
         );
       })
