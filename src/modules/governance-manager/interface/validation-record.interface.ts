@@ -1,5 +1,5 @@
 import { KnowledgeResource } from "../../knowledge-manager/enity/knowledge-resource.enity";
-import { User } from "../../users/user.enity";
+import { User } from "../../users/entity/user.enity";
 import { ValidationDecision } from "./compliance.enums";
 
 export interface IValidationRecord {

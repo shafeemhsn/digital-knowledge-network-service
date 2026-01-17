@@ -13,6 +13,8 @@ import { ComplianceCheck } from "../modules/governance-manager/entity/compliance
 import { ValidationRecord } from "../modules/governance-manager/entity/validation-record.enity";
 import { AuditRecord } from "../modules/governance-manager/entity/audit-record.entity";
 import { PublishingRecord } from "../modules/governance-manager/entity/publishing-record.entity";
+import { Region } from "../modules/geo-location/entity/region.entity";
+import { Office } from "../modules/geo-location/entity/office.entity";
 
 dotenv.config();
 
@@ -42,6 +44,8 @@ export const AppDataSource = new DataSource({
     ValidationRecord,
     AuditRecord,
     PublishingRecord,
+    Region,
+    Office,
   ],
   synchronize: true,
   logging: false,

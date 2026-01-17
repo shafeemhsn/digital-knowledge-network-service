@@ -1,5 +1,5 @@
 import { AppDataSource } from "../../config/db";
-import { User } from "../users/user.enity";
+import { User } from "../users/entity/user.enity";
 import { validateUserById } from "../users/user.service";
 import {
   createKnowledgeResource,

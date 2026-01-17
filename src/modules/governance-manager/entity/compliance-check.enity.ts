@@ -8,7 +8,7 @@ import {
 
 import { IComplianceCheck } from "../interface/compliance-check.interface";
 import { KnowledgeResource } from "../../knowledge-manager/enity/knowledge-resource.enity";
-import { User } from "../../users/user.enity";
+import { User } from "../../users/entity/user.enity";
 
 @Entity({ name: "compliance_checks" })
 export class ComplianceCheck implements IComplianceCheck {

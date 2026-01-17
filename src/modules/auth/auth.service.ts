@@ -1,19 +1,57 @@
 import dotenv from "dotenv";
 
-import { createUser, getUserByEmail } from "../users/user.repository";
-import { IUser } from "../users/user.enity";
-import { AuthResult, LoginInput } from "./interface/auth.interface";
+import { AuthResult, LoginInput, SignupInput } from "./interface/auth.interface";
 import HttpException from "../../util/http-exception.model";
 import { encrypt } from "./encrypt";
 import logger from "../../util/logger";
+import {
+  createUserEntry,
+  getRoleByIdEntry,
+  getUserByEmailEntry,
+} from "../users/user.service";
+import { getRegionByIdEntry } from "../geo-location/geo-location.service";
 
 dotenv.config();
 
-export const signup = async (registerUser: IUser): Promise<AuthResult> => {
+export const signup = async (
+  registerUser: SignupInput
+): Promise<AuthResult> => {
   try {
     logger.info("Signup attempt");
 
-    const newUser = await createUser(registerUser);
+    const { roleId, regionId, ...userInput } = registerUser || {};
+
+    if (!roleId || typeof roleId !== "string") {
+      throw new HttpException(400, {
+        message: "Role id is required",
+        result: false,
+      });
+    }
+
+    if (!regionId || typeof regionId !== "string") {
+      throw new HttpException(400, {
+        message: "Region id is required",
+        result: false,
+      });
+    }
+
+    const role = await getRoleByIdEntry(roleId);
+    if (!role) {
+      throw new HttpException(404, {
+        message: `Role not found for id: ${roleId}`,
+        result: false,
+      });
+    }
+
+    const region = await getRegionByIdEntry(regionId);
+    if (!region) {
+      throw new HttpException(404, {
+        message: `Region not found for id: ${regionId}`,
+        result: false,
+      });
+    }
+
+    const newUser = await createUserEntry({ ...userInput, role, region });
     if (!newUser) {
       throw new HttpException(500, {
         message: "Failed to create user",
@@ -71,7 +109,7 @@ export const login = async (loginInput: LoginInput): Promise<AuthResult> => {
   try {
     logger.info("Login attempt");
 
-    const user: any = await getUserByEmail(loginInput.email);
+    const user: any = await getUserByEmailEntry(loginInput.email);
     if (!user) {
       logger.warn("Login failed: user not found");
       throw new HttpException(401, {

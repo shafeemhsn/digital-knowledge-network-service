@@ -6,7 +6,7 @@ import { KnowledgeVersion } from "./enity/knowledge-version.entity";
 import { IKnowledgeResource } from "./interface/knowledge-resource.interface";
 import { IKnowledgeMetadata } from "./interface/knowledge-metadata.interface";
 import { IKnowledgeVersion } from "./interface/knowledge-version.interface";
-import { User } from "../users/user.enity";
+import { User } from "../users/entity/user.enity";
 import logger from "../../util/logger";
 
 export const createKnowledgeResource = async (

@@ -8,7 +8,7 @@ import {
 
 import { IAuditRecord } from "../interface/audit-record.interface";
 import { KnowledgeResource } from "../../knowledge-manager/enity/knowledge-resource.enity";
-import { User } from "../../users/user.enity";
+import { User } from "../../users/entity/user.enity";
 
 @Entity({ name: "audit_records" })
 export class AuditRecord implements IAuditRecord {

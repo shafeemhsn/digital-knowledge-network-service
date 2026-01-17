@@ -1,5 +1,9 @@
 import { Router, Request, Response, NextFunction } from "express";
-import { deleteUserById, updateUserDetails } from "./user.service";
+import {
+  createRoleEntry,
+  deleteUserById,
+  updateUserDetails,
+} from "./user.service";
 import logger from "../../util/logger";
 
 const router = Router();
@@ -32,6 +36,22 @@ router.delete(
       res.status(201).json({ ...user });
     } catch (error: any) {
       logger.error(`Error deleting user ${userId}: ${error.message}`);
+      next(error);
+    }
+  }
+);
+
+router.post(
+  "/roles",
+  async (req: Request, res: Response, next: NextFunction) => {
+    logger.info("POST /users/roles - Create role request received");
+
+    try {
+      const { id, name } = req.body || {};
+      const result = await createRoleEntry(id, name);
+      res.status(201).json(result);
+    } catch (error: any) {
+      logger.error(`Error creating role: ${error.message}`);
       next(error);
     }
   }

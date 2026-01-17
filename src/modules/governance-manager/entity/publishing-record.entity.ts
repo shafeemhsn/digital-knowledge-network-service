@@ -9,7 +9,7 @@ import {
 import { IPublishingRecord } from "../interface/publishing-record.interface";
 import { PublishingScope } from "../interface/compliance.enums";
 import { KnowledgeResource } from "../../knowledge-manager/enity/knowledge-resource.enity";
-import { User } from "../../users/user.enity";
+import { User } from "../../users/entity/user.enity";
 
 @Entity({ name: "publishing_records" })
 export class PublishingRecord implements IPublishingRecord {

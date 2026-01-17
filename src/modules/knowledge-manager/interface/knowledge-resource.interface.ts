@@ -1,5 +1,5 @@
 import { KnowledgeResourceStatus } from "./knowledge-resource.status";
-import { User } from "../../users/user.enity";
+import { User } from "../../users/entity/user.enity";
 
 export interface IKnowledgeResource {
   id?: string;

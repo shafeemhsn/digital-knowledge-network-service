@@ -10,7 +10,7 @@ router.post(
     logger.info("POST auth/signup called");
 
     try {
-      const user = await signup({ ...req.body.user });
+      const user = await signup({ ...req.body });
       res.status(201).json(user);
     } catch (error: any) {
       logger.error(`Signup error: ${error.message}`);

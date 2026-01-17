@@ -1,8 +1,7 @@
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import bcrypt from "bcrypt";
-
-import { JwtPayload } from "./interface/jwt-payload.interface";
+import { JwtPayload } from "./interface/auth.interface";
 
 dotenv.config();
 

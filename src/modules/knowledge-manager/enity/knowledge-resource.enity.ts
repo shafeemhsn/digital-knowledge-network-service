@@ -10,7 +10,7 @@ import {
 
 import { IKnowledgeResource } from "../interface/knowledge-resource.interface";
 import { KnowledgeResourceStatus } from "../interface/knowledge-resource.status";
-import { User } from "../../users/user.enity";
+import { User } from "../../users/entity/user.enity";
 
 @Entity()
 export class KnowledgeResource implements IKnowledgeResource {

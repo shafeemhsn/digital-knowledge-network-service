@@ -9,7 +9,7 @@ import {
 import { IValidationRecord } from "../interface/validation-record.interface";
 import { ValidationDecision } from "../interface/compliance.enums";
 import { KnowledgeResource } from "../../knowledge-manager/enity/knowledge-resource.enity";
-import { User } from "../../users/user.enity";
+import { User } from "../../users/entity/user.enity";
 
 @Entity({ name: "validation_records" })
 export class ValidationRecord implements IValidationRecord {

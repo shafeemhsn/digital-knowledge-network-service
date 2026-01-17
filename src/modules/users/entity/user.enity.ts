@@ -4,10 +4,14 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
 import bcrypt from "bcrypt";
+import { Role } from "./role.enity";
+import { Region } from "../../geo-location/entity/region.entity";
 
 const saltRounds = 10;
 
@@ -27,6 +31,14 @@ export class User {
 
   @Column()
   password!: string;
+
+  @ManyToOne(() => Role, { nullable: true })
+  @JoinColumn({ name: "role_id" })
+  role?: Role | null;
+
+  @ManyToOne(() => Region, { nullable: true })
+  @JoinColumn({ name: "region_id" })
+  region?: Region | null;
 
   @CreateDateColumn()
   createdAt!: Date;

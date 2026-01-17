@@ -1,9 +1,18 @@
 import HttpException from "../../util/http-exception.model";
 import { In } from "typeorm";
-import { IUser, User } from "./user.enity";
+import { IUser, User } from "./entity/user.enity";
+import { RoleName } from "./role-permission.enums";
 import { AppDataSource } from "../../config/db";
-import { deleteUser, updateUser } from "./user.repository";
+import {
+  createRole,
+  createUser,
+  deleteUser,
+  getRoleById,
+  getUserByEmail,
+  updateUser,
+} from "./user.repository";
 import logger from "../../util/logger";
+import { IRole } from "./entity/role.enity";
 
 const uuidRegex =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
@@ -129,6 +138,71 @@ export const validateUserById = async (id: string[]): Promise<string[]> => {
     logger.error(
       `Validation error for ID(s): ${id.join(", ")} - ${JSON.stringify(error)}`
     );
+    throw error;
+  }
+};
+
+export const createRoleEntry = async (id: string, name: string) => {
+  try {
+    logger.info(`Attempting to create role: ${id}`);
+
+    if (!id || typeof id !== "string") {
+      throw new HttpException(400, {
+        message: "Role id is required",
+        result: false,
+      });
+    }
+
+    const roleName = name as RoleName;
+    if (!Object.values(RoleName).includes(roleName)) {
+      throw new HttpException(400, {
+        message: `Invalid role name: ${name}`,
+        result: false,
+      });
+    }
+
+    const role = await createRole({ id, name: roleName });
+
+    logger.info(`Role created successfully: ${role.id}`);
+    return {
+      message: "Role created successfully",
+      result: true,
+      data: role,
+    };
+  } catch (error: any) {
+    logger.error(`Create role error: ${error.message}`);
+    throw error;
+  }
+};
+
+export const getRoleByIdEntry = async (id: string): Promise<IRole | null> => {
+  try {
+    logger.info(`Fetching role by ID: ${id}`);
+    return await getRoleById(id);
+  } catch (error: any) {
+    logger.error(`Get role error (ID: ${id}): ${error.message}`);
+    throw error;
+  }
+};
+
+export const createUserEntry = async (userInput: Partial<IUser>) => {
+  try {
+    logger.info("Creating user via user service");
+    return await createUser(userInput);
+  } catch (error: any) {
+    logger.error(`Create user error: ${error.message}`);
+    throw error;
+  }
+};
+
+export const getUserByEmailEntry = async (
+  email: string
+): Promise<IUser | null> => {
+  try {
+    logger.info(`Fetching user by email: ${email}`);
+    return await getUserByEmail(email);
+  } catch (error: any) {
+    logger.error(`Get user by email error: ${error.message}`);
     throw error;
   }
 };

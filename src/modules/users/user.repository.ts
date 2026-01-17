@@ -1,6 +1,7 @@
-import { In } from "typeorm";
+import { DeepPartial, In } from "typeorm";
 import { AppDataSource } from "../../config/db";
-import { IUser, User } from "./user.enity";
+import { IUser, User } from "./entity/user.enity";
+import { IRole, Role } from "./entity/role.enity";
 import HttpException from "../../util/http-exception.model";
 import logger from "../../util/logger";
 
@@ -10,7 +11,7 @@ const uuidRegex =
 const isUuid = (id: string) => uuidRegex.test(id);
 
 export const createUser = async (
-  createUser: IUser
+  createUser: DeepPartial<IUser>
 ): Promise<IUser | undefined> => {
   try {
     const userRepository = AppDataSource.getRepository(User);
@@ -23,6 +24,20 @@ export const createUser = async (
   }
 };
 
+export const createRole = async (
+  createRole: DeepPartial<IRole>
+): Promise<IRole> => {
+  try {
+    const roleRepository = AppDataSource.getRepository(Role);
+    const newRole = roleRepository.create(createRole);
+    logger.info("Creating role");
+    return await roleRepository.save(newRole);
+  } catch (error: any) {
+    logger.error(`Error creating role: ${error.message}`);
+    throw error;
+  }
+};
+
 export const getUserByEmail = async (email: string): Promise<IUser | null> => {
   try {
     logger.info("Retrieving user by email");
@@ -30,6 +45,17 @@ export const getUserByEmail = async (email: string): Promise<IUser | null> => {
     return await userRepository.findOne({ where: { email } });
   } catch (error: any) {
     logger.error(`Error retrieving user: ${error.message}`);
+    throw error;
+  }
+};
+
+export const getRoleById = async (id: string): Promise<IRole | null> => {
+  try {
+    logger.info("Retrieving role by id");
+    const roleRepository = AppDataSource.getRepository(Role);
+    return await roleRepository.findOne({ where: { id } });
+  } catch (error: any) {
+    logger.error(`Error retrieving role: ${error.message}`);
     throw error;
   }
 };

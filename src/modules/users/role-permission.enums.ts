@@ -1,0 +1,17 @@
+export enum RoleName {
+  NEW_CONSULTANT = "new_consultant",
+  CONSULTANT = "consultant",
+  SENIOR_CONSULTANT = "senior_consultant",
+  COMPLIANCE_OFFICER = "compliance_officer",
+  GOVERNANCE_COUNCIL = "governance_council",
+}
+
+export enum PermissionName {
+  VIEW_KNOWLEDGE = "VIEW_KNOWLEDGE",
+  RATE_KNOWLEDGE = "RATE_KNOWLEDGE",
+  SAVE_FAVORITES = "SAVE_FAVORITES",
+  UPLOAD_KNOWLEDGE = "UPLOAD_KNOWLEDGE",
+  REVIEW_COMPLIANCE = "REVIEW_COMPLIANCE",
+  REVIEW_GOVERNANCE = "REVIEW_GOVERNANCE",
+  VIEW_ANALYTICS = "VIEW_ANALYTICS",
+}
