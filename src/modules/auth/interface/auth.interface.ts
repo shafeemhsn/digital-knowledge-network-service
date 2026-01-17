@@ -1,18 +1,18 @@
 import { IUser } from "../../users/entity/user.enity";
 
+export interface AuthUserResponse {
+  id: string;
+  email: string;
+  name: string;
+  role: string | null;
+  region: string | null;
+  expertise?: string;
+  contributionScore?: number;
+}
+
 export interface AuthResult {
-  message: string;
-  result?: boolean;
-  data?: {
-    user?: {
-      userId: any;
-      firstName: string;
-      lastName: string;
-      email: string;
-    };
-    accessToken: string;
-  };
-  error?: Object;
+  token: string;
+  user: AuthUserResponse;
 }
 
 export interface LoginInput {

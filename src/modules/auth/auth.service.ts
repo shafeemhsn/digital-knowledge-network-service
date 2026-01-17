@@ -1,6 +1,11 @@
 import dotenv from "dotenv";
 
-import { AuthResult, LoginInput, SignupInput } from "./interface/auth.interface";
+import {
+  AuthResult,
+  AuthUserResponse,
+  LoginInput,
+  SignupInput,
+} from "./interface/auth.interface";
 import HttpException from "../../util/http-exception.model";
 import { encrypt } from "./encrypt";
 import logger from "../../util/logger";
@@ -12,6 +17,27 @@ import {
 import { getRegionByIdEntry } from "../geo-location/geo-location.service";
 
 dotenv.config();
+
+const buildAuthUserResponse = (user: any): AuthUserResponse => {
+  const name = `${user?.firstName ?? ""} ${user?.lastName ?? ""}`.trim();
+
+  return {
+    id: user.id,
+    email: user.email,
+    name,
+    role: user?.role?.name ?? null,
+    region: user?.region?.name ?? null,
+    ...(user?.expertise ? { expertise: user.expertise } : {}),
+    ...(typeof user?.contributionScore === "number"
+      ? { contributionScore: user.contributionScore }
+      : {}),
+  };
+};
+
+const buildAuthResult = (token: string, user: any): AuthResult => ({
+  token,
+  user: buildAuthUserResponse(user),
+});
 
 export const signup = async (
   registerUser: SignupInput
@@ -68,19 +94,7 @@ export const signup = async (
 
     logger.info(`Token generated for signup: ${newUser.id}`);
 
-    return {
-      message: "Signup successful",
-      result: true,
-      data: {
-        user: {
-          userId: newUser.id,
-          firstName: newUser.firstName,
-          lastName: newUser.lastName,
-          email: newUser.email,
-        },
-        accessToken: token,
-      },
-    };
+    return buildAuthResult(token, { ...newUser, role, region });
   } catch (error: any) {
     logger.error(`Signup error: ${error.message}`);
 
@@ -138,19 +152,7 @@ export const login = async (loginInput: LoginInput): Promise<AuthResult> => {
 
     logger.info(`Login successful: ${user.id}`);
 
-    return {
-      message: "Login successful",
-      result: true,
-      data: {
-        user: {
-          userId: user.id,
-          firstName: user.firstName,
-          lastName: user.lastName,
-          email: user.email,
-        },
-        accessToken: token,
-      },
-    };
+    return buildAuthResult(token, user);
   } catch (error: any) {
     logger.error(`Login error: ${error.message}`);
     throw error;

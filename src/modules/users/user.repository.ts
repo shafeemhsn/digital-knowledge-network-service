@@ -42,7 +42,10 @@ export const getUserByEmail = async (email: string): Promise<IUser | null> => {
   try {
     logger.info("Retrieving user by email");
     const userRepository = AppDataSource.getRepository(User);
-    return await userRepository.findOne({ where: { email } });
+    return await userRepository.findOne({
+      where: { email },
+      relations: { role: true, region: true },
+    });
   } catch (error: any) {
     logger.error(`Error retrieving user: ${error.message}`);
     throw error;

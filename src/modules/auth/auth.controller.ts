@@ -5,7 +5,7 @@ import logger from "../../util/logger";
 const router = Router();
 
 router.post(
-  "/signup",
+  "/register",
   async (req: Request, res: Response, next: NextFunction) => {
     logger.info("POST auth/signup called");
 
