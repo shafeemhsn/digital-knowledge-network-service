@@ -26,7 +26,7 @@ export class AuditRecord implements IAuditRecord {
   @JoinColumn({ name: "audited_by" })
   auditedBy!: User;
 
-  @Column({ type: "datetime", name: "audited_at" })
+  @Column({ type: "timestamptz", name: "audited_at" })
   auditedAt!: Date;
 }
 

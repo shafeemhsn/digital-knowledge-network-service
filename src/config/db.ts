@@ -1,6 +1,4 @@
 import dotenv from "dotenv";
-import path from "path";
-import fs from "fs";
 import { DataSource } from "typeorm";
 import logger from "../util/logger";
 import { User } from "../modules/users/entity/user.enity";
@@ -19,58 +17,91 @@ import { Notification } from "../modules/notifications/entity/notification.entit
 
 dotenv.config();
 
-const SQLITE_PATH = process.env.SQLITE_PATH || "data/dkn.db";
-
-const resolveDatabasePath = (databasePath: string) => {
-  if (databasePath === ":memory:") {
-    return databasePath;
+const DEFAULT_PORT = 5432;
+const toNumber = (value: string | undefined, fallback: number) => {
+  if (!value) {
+    return fallback;
   }
 
-  return path.resolve(databasePath);
+  const parsed = Number.parseInt(value, 10);
+  return Number.isNaN(parsed) ? fallback : parsed;
 };
 
-const resolvedDatabasePath = resolveDatabasePath(SQLITE_PATH);
+const toBoolean = (value: string | undefined, fallback: boolean) => {
+  if (value === undefined) {
+    return fallback;
+  }
 
-export const AppDataSource = new DataSource({
-  type: "sqlite",
-  database: resolvedDatabasePath,
-  entities: [
-    User,
-    Role,
-    Permission,
-    KnowledgeResource,
-    KnowledgeMetadata,
-    KnowledgeVersion,
-    ComplianceCheck,
-    ValidationRecord,
-    AuditRecord,
-    PublishingRecord,
-    Notification,
-    Region,
-    Office,
-  ],
+  return value.toLowerCase() === "true";
+};
+
+const sslEnabled = toBoolean(process.env.DB_SSL_ENABLED, true);
+const sslAllowSelfSigned = toBoolean(
+  process.env.DB_SSL_ALLOW_SELF_SIGNED,
+  true
+);
+
+const commonEntities = [
+  User,
+  Role,
+  Permission,
+  KnowledgeResource,
+  KnowledgeMetadata,
+  KnowledgeVersion,
+  ComplianceCheck,
+  ValidationRecord,
+  AuditRecord,
+  PublishingRecord,
+  Notification,
+  Region,
+  Office,
+];
+
+const extra: Record<string, unknown> = {
+  statement_timeout: toNumber(process.env.DB_STATEMENT_TIMEOUT, 0),
+  query_timeout: toNumber(process.env.DB_QUERY_TIMEOUT, 0),
+  connectionTimeoutMillis: toNumber(
+    process.env.DB_CONNECTION_TIMEOUT_MILLIS,
+    0
+  ),
+};
+
+if (sslEnabled) {
+  extra.ssl = {
+    rejectUnauthorized: !sslAllowSelfSigned,
+  };
+}
+
+const baseConfig = {
+  type: "postgres" as const,
+  entities: commonEntities,
   synchronize: true,
   logging: false,
-});
-
-const ensureDatabaseDirectory = () => {
-  if (resolvedDatabasePath === ":memory:") {
-    return;
-  }
-
-  const databaseDir = path.dirname(resolvedDatabasePath);
-  fs.mkdirSync(databaseDir, { recursive: true });
+  extra,
 };
 
+export const AppDataSource = process.env.DATABASE_URL
+  ? new DataSource({
+      ...baseConfig,
+      url: process.env.DATABASE_URL,
+    })
+  : new DataSource({
+      ...baseConfig,
+      host: process.env.DB_HOST,
+      port: toNumber(process.env.DB_PORT, DEFAULT_PORT),
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_NAME,
+    });
+
 export const initializeDatabase = async () => {
-  logger.info("Connecting SQLite database...");
+  logger.info("Connecting PostgreSQL database...");
 
   try {
-    ensureDatabaseDirectory();
     await AppDataSource.initialize();
-    logger.info("SQLite successfully connected.");
+    logger.info("PostgreSQL successfully connected.");
   } catch (error) {
-    logger.error("SQLite Connection Error:", error);
+    logger.error("PostgreSQL Connection Error:", error);
     process.exit(1);
   }
 };

@@ -51,7 +51,7 @@ export class KnowledgeResource implements IKnowledgeResource {
   @Column({ type: "integer", default: 0 })
   views!: number;
 
-  @Column({ type: "datetime", nullable: true, name: "published_at" })
+  @Column({ type: "timestamptz", nullable: true, name: "published_at" })
   publishedAt?: Date | null;
 
   @Column({ type: "boolean", default: false, name: "has_personal_data" })

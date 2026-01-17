@@ -30,7 +30,7 @@ export class PublishingRecord implements IPublishingRecord {
   @JoinColumn({ name: "published_by" })
   publishedBy!: User;
 
-  @Column({ type: "datetime", name: "published_at" })
+  @Column({ type: "timestamptz", name: "published_at" })
   publishedAt!: Date;
 }
 

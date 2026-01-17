@@ -96,7 +96,7 @@ export const signup = async (
 
     return buildAuthResult(token, { ...newUser, role, region });
   } catch (error: any) {
-    logger.error(`Signup error: ${error.message}`);
+    logger.error("Signup error:", error);
 
     if (
       error?.code === "SQLITE_CONSTRAINT" ||

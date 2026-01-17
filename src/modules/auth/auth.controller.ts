@@ -14,7 +14,7 @@ router.post(
       const user = await signup({ ...req.body });
       res.status(201).json(user);
     } catch (error: any) {
-      logger.error(`Signup error: ${error.message}`);
+      logger.error("Signup error:", error);
       next(error);
     }
   }

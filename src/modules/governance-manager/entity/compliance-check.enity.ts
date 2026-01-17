@@ -29,7 +29,7 @@ export class ComplianceCheck implements IComplianceCheck {
   @JoinColumn({ name: "checked_by" })
   checkedBy!: User;
 
-  @Column({ type: "datetime", name: "checked_at" })
+  @Column({ type: "timestamptz", name: "checked_at" })
   checkedAt!: Date;
 }
 

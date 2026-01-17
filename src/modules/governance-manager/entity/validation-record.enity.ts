@@ -30,7 +30,7 @@ export class ValidationRecord implements IValidationRecord {
   @JoinColumn({ name: "validated_by" })
   validatedBy!: User;
 
-  @Column({ type: "datetime", name: "validated_at" })
+  @Column({ type: "timestamptz", name: "validated_at" })
   validatedAt!: Date;
 }
 
