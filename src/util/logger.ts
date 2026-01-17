@@ -1,6 +1,6 @@
 import winston from "winston";
 
-const { combine, timestamp, printf, colorize } = winston.format;
+const { combine, timestamp, printf, colorize, errors, splat } = winston.format;
 
 const redactSensitive = (value: string) => {
   return value
@@ -17,14 +17,28 @@ const redactFormat = winston.format((info) => {
   return info;
 });
 
-const logFormat = printf(({ level, message, timestamp }) => {
-  return `[${timestamp}] ${level}: ${message}`;
+const serializeMeta = (meta: Record<string, unknown>) => {
+  try {
+    return JSON.stringify(meta);
+  } catch (error) {
+    return `[unserializable log metadata: ${String(error)}]`;
+  }
+};
+
+const logFormat = printf((info) => {
+  const { level, message, timestamp, stack, ...meta } = info;
+  const metaKeys = Object.keys(meta);
+  const metaSuffix = metaKeys.length > 0 ? ` ${serializeMeta(meta)}` : "";
+  const stackSuffix = stack ? `\n${stack}` : "";
+  return `[${timestamp}] ${level}: ${message}${stackSuffix}${metaSuffix}`;
 });
 
 const logger = winston.createLogger({
   level: "info",
   format: combine(
     colorize(),
+    errors({ stack: true }),
+    splat(),
     redactFormat(),
     timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
     logFormat
