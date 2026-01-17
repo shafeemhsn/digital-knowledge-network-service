@@ -3,7 +3,9 @@ import path from "path";
 import fs from "fs";
 import { DataSource } from "typeorm";
 import logger from "../util/logger";
-import { User } from "../modules/users/user.enity";
+import { User } from "../modules/users/entity/user.enity";
+import { Role } from "../modules/users/entity/role.enity";
+import { Permission } from "../modules/users/entity/permission.enity";
 import { KnowledgeResource } from "../modules/knowledge-manager/enity/knowledge-resource.enity";
 import { KnowledgeMetadata } from "../modules/knowledge-manager/enity/knowledge-metadata.entity";
 import { KnowledgeVersion } from "../modules/knowledge-manager/enity/knowledge-version.entity";
@@ -31,6 +33,8 @@ export const AppDataSource = new DataSource({
   database: resolvedDatabasePath,
   entities: [
     User,
+    Role,
+    Permission,
     KnowledgeResource,
     KnowledgeMetadata,
     KnowledgeVersion,
