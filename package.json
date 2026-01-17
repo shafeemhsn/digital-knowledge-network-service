@@ -1,11 +1,12 @@
 {
-  "name": "tick-flow-service",
+  "name": "digital-knowledge-network-service",
   "version": "1.0.0",
-  "main": "server.ts",
+  "main": "dist/server.js",
   "scripts": {
     "dev": "nodemon src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js",
+    "postinstall": "npm run build",
     "test": "jest"
   },
   "keywords": [],
